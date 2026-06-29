@@ -1,25 +1,139 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Teju Photography</title>
-    <style>
-        body{
-            background:#111;
-            color:white;
-            font-family:Arial;
-            text-align:center;
-        }
+<html lang="en">
 
-        img{
-            width:300px;
-            margin:20px;
-            border-radius:10px;
-        }
-    </style>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Teju Photography</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#111;
+font-family:Arial,Helvetica,sans-serif;
+color:white;
+}
+
+header{
+padding:40px 20px;
+text-align:center;
+}
+
+header h1{
+font-size:55px;
+margin-bottom:10px;
+}
+
+header p{
+color:#aaa;
+font-size:20px;
+}
+
+.gallery{
+
+column-count:4;
+column-gap:18px;
+padding:20px;
+
+}
+
+.gallery img{
+
+width:100%;
+margin-bottom:18px;
+border-radius:14px;
+cursor:pointer;
+transition:.35s;
+display:block;
+
+}
+
+.gallery img:hover{
+
+transform:scale(1.02);
+
+}
+
+@media(max-width:1200px){
+
+.gallery{
+column-count:3;
+}
+
+}
+
+@media(max-width:800px){
+
+.gallery{
+column-count:2;
+}
+
+}
+
+@media(max-width:550px){
+
+.gallery{
+column-count:1;
+}
+
+}
+
+.lightbox{
+
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.95);
+justify-content:center;
+align-items:center;
+z-index:999;
+
+}
+
+.lightbox img{
+
+max-width:90%;
+max-height:90%;
+border-radius:12px;
+
+}
+
+.close{
+
+position:absolute;
+top:20px;
+right:35px;
+font-size:45px;
+cursor:pointer;
+
+}
+
+</style>
+
 </head>
+
 <body>
 
-<h1>📷 Teju Photography</h1>
+<header>
+
+<h1>📸 Teju Photography</h1>
+
+<p>Capturing moments through my lens.</p>
+
+</header>
+
+<div class="gallery">
 
 <img src="images/1.jpeg">
 <img src="images/2.jpeg">
@@ -31,6 +145,97 @@
 <img src="images/8.jpeg">
 <img src="images/9.jpeg">
 <img src="images/10.jpeg">
+<img src="images/11.jpeg">
+<img src="images/12.jpeg">
+<img src="images/13.jpeg">
+<img src="images/14.jpeg">
+<img src="images/15.jpeg">
+<img src="images/16.jpeg">
+<img src="images/17.jpeg">
+<img src="images/18.jpeg">
+<img src="images/19.jpeg">
+<img src="images/20.jpeg">
+<img src="images/21.jpeg">
+<img src="images/22.jpeg">
+<img src="images/23.jpeg">
+<img src="images/24.jpeg">
+<img src="images/25.jpeg">
+<img src="images/26.jpeg">
+<img src="images/27.jpeg">
+<img src="images/28.jpeg">
+<img src="images/29.jpeg">
+<img src="images/30.jpeg">
+<img src="images/31.jpeg">
+<img src="images/32.jpeg">
+<img src="images/33.jpeg">
+<img src="images/34.jpeg">
+<img src="images/35.jpeg">
+<img src="images/36.jpeg">
+<img src="images/37.jpeg">
+<img src="images/38.jpeg">
+<img src="images/39.jpeg">
+<img src="images/40.jpeg">
+<img src="images/41.jpeg">
+<img src="images/42.jpeg">
+<img src="images/43.jpeg">
+<img src="images/44.jpeg">
+<img src="images/45.jpeg">
+<img src="images/46.jpeg">
+<img src="images/47.jpeg">
+<img src="images/48.jpeg">
+<img src="images/49.jpeg">
+<img src="images/50.jpeg">
+
+</div>
+
+<div class="lightbox" id="lightbox">
+
+<span class="close">&times;</span>
+
+<img id="lightbox-image">
+
+</div>
+
+<script>
+
+const images=document.querySelectorAll(".gallery img");
+
+const lightbox=document.getElementById("lightbox");
+
+const lightboxImage=document.getElementById("lightbox-image");
+
+const close=document.querySelector(".close");
+
+images.forEach(img=>{
+
+img.addEventListener("click",()=>{
+
+lightbox.style.display="flex";
+
+lightboxImage.src=img.src;
+
+});
+
+});
+
+close.onclick=()=>{
+
+lightbox.style.display="none";
+
+}
+
+lightbox.onclick=(e)=>{
+
+if(e.target===lightbox){
+
+lightbox.style.display="none";
+
+}
+
+}
+
+</script>
 
 </body>
+
 </html>
