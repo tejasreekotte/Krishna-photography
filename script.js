@@ -1,99 +1,93 @@
-const gallery=document.getElementById("gallery");
+const gallery = document.getElementById("gallery");
 
-const totalImages=50;
+const totalImages = 50; // Change this if you have more or fewer images
 
-let currentImage=0;
+let currentImage = 0;
+const images = [];
 
-const images=[];
+// Generate Gallery
+for (let i = 1; i <= totalImages; i++) {
 
-for(let i=1;i<=totalImages;i++){
+    const file = `images/${i}.jpeg`;
 
-let number=String(i).padStart(3,"0");
+    images.push(file);
 
-let file=`images/${number}.jpg`;
+    const img = document.createElement("img");
 
-images.push(file);
+    img.src = file;
+    img.alt = `Photo ${i}`;
+    img.loading = "lazy";
 
-let img=document.createElement("img");
+    img.onclick = () => openImage(i - 1);
 
-img.src=file;
-
-img.loading="lazy";
-
-img.alt=`Photo ${number}`;
-
-img.onclick=()=>openImage(i-1);
-
-gallery.appendChild(img);
-
+    gallery.appendChild(img);
 }
 
-const lightbox=document.getElementById("lightbox");
+// Lightbox Elements
+const lightbox = document.getElementById("lightbox");
+const lightboxImage = document.getElementById("lightboxImage");
+const closeBtn = document.getElementById("close");
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
 
-const lightboxImage=document.getElementById("lightboxImage");
-
-function openImage(index){
-
-currentImage=index;
-
-lightbox.style.display="flex";
-
-lightboxImage.src=images[index];
-
+// Open Image
+function openImage(index) {
+    currentImage = index;
+    lightbox.style.display = "flex";
+    lightboxImage.src = images[currentImage];
 }
 
-document.getElementById("close").onclick=()=>{
+// Close
+closeBtn.onclick = () => {
+    lightbox.style.display = "none";
+};
 
-lightbox.style.display="none";
+// Previous
+prevBtn.onclick = () => {
+    currentImage--;
 
-}
+    if (currentImage < 0) {
+        currentImage = images.length - 1;
+    }
 
-document.getElementById("prev").onclick=()=>{
+    lightboxImage.src = images[currentImage];
+};
 
-currentImage=(currentImage-1+images.length)%images.length;
+// Next
+nextBtn.onclick = () => {
+    currentImage++;
 
-lightboxImage.src=images[currentImage];
+    if (currentImage >= images.length) {
+        currentImage = 0;
+    }
 
-}
+    lightboxImage.src = images[currentImage];
+};
 
-document.getElementById("next").onclick=()=>{
+// Keyboard Controls
+document.addEventListener("keydown", (e) => {
 
-currentImage=(currentImage+1)%images.length;
+    if (lightbox.style.display !== "flex") return;
 
-lightboxImage.src=images[currentImage];
+    if (e.key === "ArrowRight") {
+        nextBtn.click();
+    }
 
-}
+    if (e.key === "ArrowLeft") {
+        prevBtn.click();
+    }
 
-document.addEventListener("keydown",(e)=>{
-
-if(lightbox.style.display!=="flex") return;
-
-if(e.key==="ArrowRight"){
-
-document.getElementById("next").click();
-
-}
-
-if(e.key==="ArrowLeft"){
-
-document.getElementById("prev").click();
-
-}
-
-if(e.key==="Escape"){
-
-document.getElementById("close").click();
-
-}
+    if (e.key === "Escape") {
+        closeBtn.click();
+    }
 
 });
 
-lightbox.onclick=(e)=>{
+// Click outside image to close
+lightbox.onclick = (e) => {
 
-if(e.target===lightbox){
+    if (e.target === lightbox) {
+        lightbox.style.display = "none";
+    }
 
-lightbox.style.display="none";
-
-}
-
-}
+};
